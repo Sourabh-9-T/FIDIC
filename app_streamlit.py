@@ -39,17 +39,18 @@ clause_embeddings = encode_clauses()
 index = faiss.IndexFlatL2(clause_embeddings.shape[1])
 index.add(clause_embeddings)
 
-# Search function
+# Search function with distance values
 def search_clauses(query, top_k=20):
     query_embedding = model.encode([query]).astype("float32")
     distances, indices = index.search(query_embedding, top_k)
 
     results = []
-    for i in indices[0]:
+    for dist, i in zip(distances[0], indices[0]):
         results.append({
             'sub_clause_number': df.iloc[i]['sub_clause_number_1'],
             'heading': df.iloc[i]['sub_clause_number_1_heading'],
-            'text': df.iloc[i]['clause_text']
+            'text': df.iloc[i]['clause_text'],
+            'distance': float(dist)
         })
     return results
 
@@ -64,6 +65,7 @@ if query:
         st.success(f"Found {len(results)} result(s):")
         for res in results:
             st.markdown(f"### Clause {res['sub_clause_number']} - {res['heading']}")
+            st.markdown(f"`Similarity (L2 distance): {res['distance']:.4f}`")
             st.write(res['text'])
             st.markdown("---")
     else:
