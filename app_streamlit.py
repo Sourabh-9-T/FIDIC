@@ -52,6 +52,10 @@ def search_clauses(query, top_k=20):
             'text': df.iloc[i]['clause_text'],
             'distance': float(dist)
         })
+
+    # Sort results by sub_clause_number
+    results.sort(key=lambda x: str(x['sub_clause_number']))
+
     return results
 
 # Input box
