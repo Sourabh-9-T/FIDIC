@@ -55,8 +55,8 @@ def search_clauses(query, top_k=20):
 
     # Sort results by sub_clause_number
     def clause_key(clause):
-    parts = str(clause['sub_clause_number']).split('.')
-    return tuple(int(part) if part.isdigit() else 0 for part in parts)
+        parts = str(clause['sub_clause_number']).split('.')
+        return tuple(int(part) if part.isdigit() else 0 for part in parts)
 
     results.sort(key=clause_key)
 
