@@ -8,6 +8,8 @@ import numpy as np
 
 # Title
 st.title("FIDIC Clause Search")
+st.markdown("<small>Designed by Sourabh Kumar Singh (L&T)</small>", unsafe_allow_html=True)
+
 
 # GitHub CSV link
 url = 'https://raw.githubusercontent.com/Sourabh-9-T/FIDIC/refs/heads/main/FIDIC_CSV.csv'
